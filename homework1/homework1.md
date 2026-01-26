@@ -170,8 +170,12 @@ JOIN taxi_zone z_do
     ON t."DOLocationID" = z_do."LocationID"
 WHERE
     z_pu."Zone" = 'East Harlem North'
-GROUP BY z_do."Zone"
-ORDER BY max_tip DESC
+    AND t.lpep_pickup_datetime >= '2025-11-01'
+    AND t.lpep_pickup_datetime <  '2025-12-01'
+GROUP BY
+    z_do."Zone"
+ORDER BY
+    max_tip DESC
 LIMIT 1;
 ```
 
