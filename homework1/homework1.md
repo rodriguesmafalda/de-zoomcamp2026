@@ -94,6 +94,13 @@ For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2
 - 8,254
 - 8,421
 
+```sql
+select count(*) from green_trip_data
+where
+    lpep_pickup_datetime >= '2025-11-01' AND
+    lpep_pickup_datetime < '2025-12-01' AND
+    trip_distance <= 1.0;`
+```
 
 ## Question 4. Longest trip for each day
 
@@ -106,6 +113,18 @@ Use the pick up time for your calculations.
 - 2025-11-23
 - 2025-11-25
 
+```sql
+SELECT
+  DATE(lpep_pickup_datetime) AS pickup_day,
+  MAX(trip_distance) AS max_dist
+FROM green_trip_data
+WHERE trip_distance < 100
+GROUP BY pickup_day
+ORDER BY max_dist DESC
+LIMIT 1;
+
+```
+
 
 ## Question 5. Biggest pickup zone
 
@@ -115,6 +134,18 @@ Which was the pickup zone with the largest `total_amount` (sum of all trips) on 
 - East Harlem South
 - Morningside Heights
 - Forest Hills
+
+```sql
+SELECT
+    z."Zone",
+    SUM(t.total_amount) AS sum_total
+FROM green_trip_data t
+JOIN taxi_zone z ON t."PULocationID" = z."LocationID"
+WHERE CAST(t.lpep_pickup_datetime AS DATE) = '2025-11-18'
+GROUP BY z."Zone"
+ORDER BY sum_total DESC
+LIMIT 1;
+```
 
 
 ## Question 6. Largest tip
@@ -127,6 +158,22 @@ Note: it's `tip` , not `trip`. We need the name of the zone, not the ID.
 - Yorkville West
 - East Harlem North
 - LaGuardia Airport
+
+```sql
+SELECT
+    z_do."Zone" AS dropoff_zone,
+    MAX(t.tip_amount) AS max_tip
+FROM green_trip_data t
+JOIN taxi_zone z_pu
+    ON t."PULocationID" = z_pu."LocationID"
+JOIN taxi_zone z_do
+    ON t."DOLocationID" = z_do."LocationID"
+WHERE
+    z_pu."Zone" = 'East Harlem North'
+GROUP BY z_do."Zone"
+ORDER BY max_tip DESC
+LIMIT 1;
+```
 
 
 ## Terraform
@@ -158,56 +205,3 @@ Answers:
 ## Submitting the solutions
 
 * Form for submitting: https://courses.datatalks.club/de-zoomcamp-2026/homework/hw1
-
-
-## Learning in Public
-
-We encourage everyone to share what they learned. This is called "learning in public".
-
-### Why learn in public?
-
-- Accountability: Sharing your progress creates commitment and motivation to continue
-- Feedback: The community can provide valuable suggestions and corrections
-- Networking: You'll connect with like-minded people and potential collaborators
-- Documentation: Your posts become a learning journal you can reference later
-- Opportunities: Employers and clients often discover talent through public learning
-
-You can read more about the benefits [here](https://alexeyondata.substack.com/p/benefits-of-learning-in-public-and).
-
-Don't worry about being perfect. Everyone starts somewhere, and people love following genuine learning journeys!
-
-### Example post for LinkedIn
-
-```
-🚀 Week 1 of Data Engineering Zoomcamp by @DataTalksClub complete!
-
-Just finished Module 1 - Docker & Terraform. Learned how to:
-
-✅ Containerize applications with Docker and Docker Compose
-✅ Set up PostgreSQL databases and write SQL queries
-✅ Build data pipelines to ingest NYC taxi data
-✅ Provision cloud infrastructure with Terraform
-
-Here's my homework solution: <LINK>
-
-Following along with this amazing free course - who else is learning data engineering?
-
-You can sign up here: https://github.com/DataTalksClub/data-engineering-zoomcamp/
-```
-
-### Example post for Twitter/X
-
-
-```
-🐳 Module 1 of Data Engineering Zoomcamp done!
-
-- Docker containers
-- Postgres & SQL
-- Terraform & GCP
-- NYC taxi data pipeline
-
-My solution: <LINK>
-
-Free course by @DataTalksClub: https://github.com/DataTalksClub/data-engineering-zoomcamp/
-```
-
