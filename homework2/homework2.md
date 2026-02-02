@@ -43,11 +43,11 @@ Complete the quiz shown below. It's a set of 6 multiple-choice questions to test
 ![question2.png](images/question2.png)
 
 Through the image shown, based on the execution logic:
+- `{{inputs.taxi}}` → `green`
+- `{{inputs.year}}` → `2020`
+- `{{inputs.month}}` → `04`  
 
-{{inputs.taxi}} → green
-{{inputs.year}} → 2020
-{{inputs.month}} → 04
-The variable `file` is built as: green_tripdata_2020-04.csv
+The variable `file` is built as:  `green_tripdata_2020-04.csv`
 
 
 
