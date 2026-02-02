@@ -40,11 +40,28 @@ Complete the quiz shown below. It's a set of 6 multiple-choice questions to test
 - `green_tripdata_04_2020.csv`
 - `green_tripdata_2020.csv`
 
+![question2.png](images/question2.png)
+
+Through the image shown, based on the execution logic:
+
+{{inputs.taxi}} → green
+{{inputs.year}} → 2020
+{{inputs.month}} → 04
+The variable `file` is built as: green_tripdata_2020-04.csv
+
+
+
 3) How many rows are there for the `Yellow` Taxi data for all CSV files in the year 2020?
 - 13,537.299
 - 24,648,499
 - 18,324,219
 - 29,430,127
+
+```sql
+SELECT count(*) 
+FROM public.yellow_tripdata 
+WHERE filename like 'yellow_tripdata_2020-%';
+```
 
 4) How many rows are there for the `Green` Taxi data for all CSV files in the year 2020?
 - 5,327,301
@@ -52,11 +69,23 @@ Complete the quiz shown below. It's a set of 6 multiple-choice questions to test
 - 1,734,051
 - 1,342,034
 
+```sql
+SELECT count(*) 
+FROM public.green_tripdata
+WHERE filename like 'green_tripdata_2020-%';
+```
+
 5) How many rows are there for the `Yellow` Taxi data for the March 2021 CSV file?
 - 1,428,092
 - 706,911
 - 1,925,152
 - 2,561,031
+
+```sql
+SELECT count(*) 
+FROM public.yellow_tripdata
+WHERE filename like 'yellow_tripdata_2021-03%';
+```
 
 6) How would you configure the timezone to New York in a Schedule trigger?
 - Add a `timezone` property set to `EST` in the `Schedule` trigger configuration
@@ -64,57 +93,10 @@ Complete the quiz shown below. It's a set of 6 multiple-choice questions to test
 - Add a `timezone` property set to `UTC-5` in the `Schedule` trigger configuration
 - Add a `location` property set to `New_York` in the `Schedule` trigger configuration
 
+https://kestra.io/docs/workflow-components/triggers/schedule-trigger#examples
+![question6.png](images/question6.png)
+
 ## Submitting the solutions
 
 * Form for submitting: https://courses.datatalks.club/de-zoomcamp-2026/homework/hw2
 * Check the link above to see the due date
-
-## Solution
-
-Will be added after the due date
-
-
-## Learning in Public
-
-We encourage everyone to share what they learned. This is called "learning in public".
-
-Read more about the benefits [here](https://alexeyondata.substack.com/p/benefits-of-learning-in-public-and).
-
-### Example post for LinkedIn
-
-```
-🚀 Week 2 of Data Engineering Zoomcamp by @DataTalksClub and @Will Russell complete!
-
-Just finished Module 2 - Workflow Orchestration with @Kestra. Learned how to:
-
-✅ Orchestrate data pipelines with Kestra flows
-✅ Use variables and expressions for dynamic workflows
-✅ Implement backfill for historical data
-✅ Schedule workflows with timezone support
-✅ Process NYC taxi data (Yellow & Green) for 2019-2021
-
-Built ETL pipelines that extract, transform, and load taxi trip data automatically!
-
-Thanks to the @Kestra team for the great orchestration tool!
-
-Here's my homework solution: <LINK>
-
-Following along with this amazing free course - who else is learning data engineering?
-
-You can sign up here: https://github.com/DataTalksClub/data-engineering-zoomcamp/
-```
-
-### Example post for Twitter/X
-
-```
-Module 2 of DE Zoomcamp by @DataTalksClub @wrussell1999 done!
-
-- @kestra_io workflow orchestration
-- ETL pipelines for taxi data
-- Backfill & scheduling
-- Variables & dynamic flows
-
-My solution: <LINK>
-
-Join me here: https://github.com/DataTalksClub/data-engineering-zoomcamp/
-```

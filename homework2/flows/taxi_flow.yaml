@@ -1,4 +1,4 @@
-id: 02_postgres_taxi
+id: 04_postgres_taxi
 namespace: zoomcamp
 description: |
   The CSV Data used in the course: https://github.com/DataTalksClub/nyc-tlc-data/releases
@@ -265,6 +265,6 @@ tasks:
 pluginDefaults:
   - type: io.kestra.plugin.jdbc.postgresql
     values:
-      url: jdbc:postgresql://host.docker.internal:5432/ny_taxi
+      url: jdbc:postgresql://pgdatabase:5432/ny_taxi
       username: root
       password: root
